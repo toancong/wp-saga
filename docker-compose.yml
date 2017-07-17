@@ -3,6 +3,6 @@ version: '3.1'
 services:
 
   theme:
-    build: .
+    image: toancong/wp-sage:sage8.5
     volumes:
       - .:/usr/source
