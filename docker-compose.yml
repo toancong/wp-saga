@@ -1,8 +1,0 @@
-version: '3.1'
-
-services:
-
-  theme:
-    image: toancong/wp-sage:sage8.5
-    volumes:
-      - .:/usr/source

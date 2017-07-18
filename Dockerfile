@@ -3,7 +3,6 @@ FROM php:5.6
 WORKDIR /usr/source/
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV COMPOSER_NO_INTERACTION 1
 
 # Add Node.js repo
 RUN apt-get update \
@@ -35,10 +34,16 @@ RUN npm -v
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
   && composer global require hirak/prestissimo
 
+# Install yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+    && apt-get update && apt-get install -y yarn
+
 # Install node tools
 RUN npm install -g grunt-cli bower gulp
 RUN grunt --version
 RUN bower --allow-root --version
 RUN gulp --version
+RUN yarn --version
 
 CMD ["bash"]
